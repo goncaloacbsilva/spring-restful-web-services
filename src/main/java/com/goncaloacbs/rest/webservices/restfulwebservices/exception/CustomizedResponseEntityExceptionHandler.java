@@ -1,6 +1,6 @@
 package com.goncaloacbs.rest.webservices.restfulwebservices.exception;
 
-import com.goncaloacbs.rest.webservices.restfulwebservices.user.PostNotFoundException;
+import com.goncaloacbs.rest.webservices.restfulwebservices.post.PostNotFoundException;
 import com.goncaloacbs.rest.webservices.restfulwebservices.user.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

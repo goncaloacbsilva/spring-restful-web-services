@@ -1,12 +1,13 @@
-package com.goncaloacbs.rest.webservices.restfulwebservices.user;
+package com.goncaloacbs.rest.webservices.restfulwebservices.post;
 
 
+import com.goncaloacbs.rest.webservices.restfulwebservices.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class PostNotFoundException extends RuntimeException {
     public PostNotFoundException(String message) {
-        super(message);
+        super(PostNotFoundException.class.getSimpleName() + ": " + message);
     }
 }

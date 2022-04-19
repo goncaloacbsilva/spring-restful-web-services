@@ -1,12 +1,31 @@
-package com.goncaloacbs.rest.webservices.restfulwebservices.user;
+package com.goncaloacbs.rest.webservices.restfulwebservices.post;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.goncaloacbs.rest.webservices.restfulwebservices.user.User;
+
+import javax.persistence.*;
+
+@Entity
 public class Post {
+
+    @Id
+    @GeneratedValue
     private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
     private String title;
     private String content;
 
-    public Post(Integer id, String title, String content) {
+    protected Post() {
+
+    }
+
+    public Post(Integer id, User user, String title, String content) {
         this.id = id;
+        this.user = user;
         this.title = title;
         this.content = content;
     }
@@ -17,6 +36,14 @@ public class Post {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {
@@ -39,6 +66,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
+                ", user=" + user +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';

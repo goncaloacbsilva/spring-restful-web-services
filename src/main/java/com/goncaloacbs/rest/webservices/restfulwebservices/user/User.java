@@ -1,13 +1,20 @@
 package com.goncaloacbs.rest.webservices.restfulwebservices.user;
 
+import com.goncaloacbs.rest.webservices.restfulwebservices.post.Post;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @Size(min = 2, message = "Name should have at least 2 characters")
@@ -15,13 +22,18 @@ public class User {
 
     @Past
     private Date birthDate;
-    private Map<Integer, Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    protected User() {
+
+    }
 
     public User(Integer id, String name, Date birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
-        this.posts = new HashMap<>();
     }
 
     public Integer getId() {
@@ -48,23 +60,12 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Collection<Post> getPosts() {
-        return posts.values();
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public Post createPost(Post post) {
-        Integer id = posts.size();
-        post.setId(id);
-        posts.put(id, post);
-        return post;
-    }
-
-    public Post getPost(Integer id) {
-        if (posts.containsKey(id)) {
-            return posts.get(id);
-        } else {
-            return null;
-        }
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
@@ -73,6 +74,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
+                ", posts=" + posts +
                 '}';
     }
 }
